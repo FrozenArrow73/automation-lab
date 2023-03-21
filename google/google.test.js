@@ -1,5 +1,5 @@
 // Lines 2 through 6 are our boilerplate lines of code, we need them for our tests to work
-const {Builder, Capabilities} = require('selenium-webdriver')
+const {Builder, Capabilities, By} = require('selenium-webdriver')
 
 require('chromedriver')
 
@@ -20,22 +20,34 @@ afterAll(async () => {
 test('I can search Google', async () => {
 
     // For this line you'll need to put the name of the search bar which you can find by inspecting that element in Chrome
-    let searchBar = await driver.findElement(By.name(/*Search Bar Name*/))
+    let searchBar = await driver.findElement(By.name("q"))
     
     // This time you'll just finish this string with something you want to search on Google, make sure you leanve that \n !
-    await searchBar.sendKeys('/*The thing you want to search on Google*/\n')
+    await searchBar.sendKeys('Hunger Games movie\n')
 
     // This line will pause our automation so you can see your search!
     await driver.sleep(2000)
 
     // We now want our automation to get the search bar again since we're on a new page
-    searchBar = await driver.findElement(By.name(/*Search Bar Name*/))
+    searchBar = await driver.findElement(By.name("q"))
 
     // We'll use this line to clear out our old input.
-    await /*Search Bar Selector*/.clear() 
+    await searchBar.clear() 
 
     // Let's do another search!
-    await /*Search Bar Selector*/.sendKeys('/*The string you want to search*/\n')
+    await searchBar.sendKeys('Catching Fire movie\n')
 
     await driver.sleep(2000) 
+
+    //-----------------------------------------------------------------------------------
+
+    searchBar = await driver.findElement(By.name("q"))
+
+    await searchBar.clear()
+
+    await searchBar.sendKeys("The Big Bang Theory TV Show\n")
+
+    await driver.sleep(2000)
+
+
 })
